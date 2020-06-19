@@ -31,11 +31,6 @@ export default {
       default: null,
     },
   },
-  head() {
-    return {
-      title: this.message, // <--- Set the SEO title
-    }
-  },
   computed: {
     statusCode() {
       // <--- Get the status code
@@ -45,6 +40,11 @@ export default {
       // <--- Print the error
       return this.error.message
     },
+  },
+  head() {
+    return {
+      title: this.message, // <--- Set the SEO title
+    }
   },
 }
 </script>

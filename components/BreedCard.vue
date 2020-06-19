@@ -10,7 +10,10 @@
 export default {
   name: 'BreedCard',
   props: {
-    breed: Object,
+    breed: {
+      type: Object,
+      default: () => ({}),
+    },
   },
 }
 </script>

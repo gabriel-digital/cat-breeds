@@ -9,10 +9,34 @@
         :data-index="index"
       />
     </div>
+    <Pagination :page="page" />
   </div>
 </template>
 <script>
+import BreedCard from '@/components/BreedCard.vue'
+import Pagination from '@/components/Pagination.vue'
 export default {
+  components: {
+    BreedCard,
+    Pagination,
+  },
+  async asyncData({ $axios, route, error }) {
+    try {
+      const { data } = await $axios.get(
+        `https://api.thecatapi.com/v1/breeds?limit=20&page=${
+          route.params.page - 1
+        }&api_key=${process.env.ACTBREEDS_API_KEY}`
+      )
+      return {
+        breeds: data,
+      }
+    } catch (e) {
+      error({
+        statusCode: 503,
+        message: 'Unable to fetch events events at this time',
+      })
+    }
+  },
   computed: {
     page() {
       return this.$route.params.page

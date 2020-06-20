@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-    <h1>Discover cat breeds (Page {{ this.$route.params.page }})</h1>
+    <h1>
+      Discover cat breeds (Page {{ this.$route.params.page }}/{{ totalPages }})
+    </h1>
     <main>
       <ul>
         <BreedCard
@@ -19,7 +21,7 @@ import BreedCard from '@/components/BreedCard.vue'
 import Pagination from '@/components/Pagination.vue'
 export default {
   validate({ params }) {
-    // Doit être un nombre
+    // check param is a number
     return /^\d+$/.test(params.page)
   },
   components: {
@@ -28,29 +30,42 @@ export default {
   },
   async asyncData({ $axios, route, error }) {
     try {
-      if (route.params.page < 1 || route.params.page > 4) {
-        error({ statusCode: 404, message: 'Page non trouvée' })
+      // check we can't access page "0"
+      if (route.params.page < 1) {
+        error({ statusCode: 404, message: 'Page not found' })
       } else {
-        const { data } = await $axios.get(
-          `https://api.thecatapi.com/v1/breeds?limit=20&page=${
+        // limit results per page
+        const limit = 20
+        const response = await $axios.get(
+          `https://api.thecatapi.com/v1/breeds?limit=${limit}&page=${
             route.params.page - 1
           }`,
           {
             headers: { 'x-api-key': process.env.CATBREEDS_API_KEY },
           }
         )
-        const breeds = data
-        for (let i = 0; i < breeds.length; i++) {
-          const response = await $axios.get(
-            `https://api.thecatapi.com/v1/images/search?breed_id=${breeds[i].id}&size=small`,
-            {
-              headers: { 'x-api-key': process.env.CATBREEDS_API_KEY },
-            }
-          )
-          breeds[i].picture = response.data[0].url
-        }
-        return {
-          breeds,
+        // set number of pages & make sure we can't exceed it
+        const totalPages = Math.ceil(
+          response.headers['pagination-count'] / limit
+        )
+        if (route.params.page > totalPages) {
+          error({ statusCode: 404, message: 'Page not found' })
+        } else {
+          const breeds = response.data
+          // fetch picture url for each breed
+          for (let i = 0; i < breeds.length; i++) {
+            const response = await $axios.get(
+              `https://api.thecatapi.com/v1/images/search?breed_id=${breeds[i].id}&size=small`,
+              {
+                headers: { 'x-api-key': process.env.CATBREEDS_API_KEY },
+              }
+            )
+            breeds[i].picture = response.data[0].url
+          }
+          return {
+            totalPages,
+            breeds,
+          }
         }
       }
     } catch (e) {

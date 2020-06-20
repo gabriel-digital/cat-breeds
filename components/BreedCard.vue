@@ -1,5 +1,6 @@
 <template>
-  <a>
+  <a :href="breed.wikipedia_url" target="_blank">
+    <img :src="breed.picture" :alt="`picture of ${breed.name} breed cat`" />
     <h2>
       {{ breed.name }}
     </h2>

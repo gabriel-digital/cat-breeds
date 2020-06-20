@@ -36,6 +36,8 @@ a {
   text-decoration: none;
   box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.05), 0 1px 15px 0 rgba(0, 0, 0, 0.05);
   color: black;
+  background: url(../static/images/cat-placeholder.png) no-repeat center 20px;
+  background-size: 80px;
 }
 a:hover {
   box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.2), 0 1px 15px 0 rgba(0, 0, 0, 0.19);
@@ -47,8 +49,10 @@ a img {
   object-fit: cover;
 }
 img.isLoading {
-  background: url(../static/images/cat-placeholder.png) no-repeat center center;
-  background-size: contain;
+  opacity: 0;
+}
+img.isLoaded {
+  opacity: 1;
 }
 a h2 {
   margin: 10px 0;

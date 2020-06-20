@@ -9,6 +9,7 @@
           v-for="(breed, index) in breeds"
           :key="index"
           :breed="breed"
+          :total-pages="totalPages"
           :data-index="index"
         />
       </ul>
@@ -34,7 +35,7 @@ export default {
       if (route.params.page < 1) {
         error({ statusCode: 404, message: 'Page not found' })
       } else {
-        // limit results per page
+        // fetch breeds
         const limit = 20
         const response = await $axios.get(
           `https://api.thecatapi.com/v1/breeds?limit=${limit}&page=${

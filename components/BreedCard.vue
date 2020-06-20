@@ -1,11 +1,17 @@
 <template>
-  <a :href="breed.wikipedia_url" target="_blank">
-    <img :src="breed.picture" :alt="`picture of ${breed.name} breed cat`" />
-    <h2>
-      {{ breed.name }}
-    </h2>
-    <span>Origine : {{ breed.origin }}</span>
-  </a>
+  <li>
+    <a :href="breed.wikipedia_url" target="_blank">
+      <img
+        v-lazy-load
+        :src="breed.picture"
+        :alt="`picture of ${breed.name} breed cat`"
+      />
+      <h2>
+        {{ breed.name }}
+      </h2>
+      <span>Origine : {{ breed.origin }}</span>
+    </a>
+  </li>
 </template>
 <script>
 export default {
@@ -19,15 +25,43 @@ export default {
 }
 </script>
 <style scoped>
+li {
+  width: 230px;
+}
 a {
   display: block;
   padding: 20px;
   margin-bottom: 24px;
   transition: all 0.2s linear;
   text-decoration: none;
+  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.05), 0 1px 15px 0 rgba(0, 0, 0, 0.05);
+  color: black;
 }
 a:hover {
-  transform: scale(1.01);
   box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.2), 0 1px 15px 0 rgba(0, 0, 0, 0.19);
+}
+a img {
+  width: 80px;
+  height: 80px;
+  -o-object-fit: contain;
+  object-fit: cover;
+}
+img.isLoading {
+  background: url(../static/images/cat-placeholder.png) no-repeat center center;
+  background-size: contain;
+}
+a h2 {
+  margin: 10px 0;
+  font-weight: 800;
+}
+@media screen and (max-width: 1023px) {
+  li {
+    width: 45%;
+  }
+}
+@media screen and (max-width: 560px) {
+  li {
+    width: 100%;
+  }
 }
 </style>

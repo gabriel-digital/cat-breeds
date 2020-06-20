@@ -1,10 +1,15 @@
 <template>
   <div>
+    <Header />
     <nuxt />
   </div>
 </template>
 <script>
+import Header from '@/components/Header.vue'
 export default {
+  components: {
+    Header,
+  },
   head: {
     titleTemplate: 'Cat Breeds - %s',
     meta: [
@@ -165,9 +170,11 @@ html {
   margin: 0;
 }
 .container {
+  max-width: 80%;
   margin: 0 auto;
-  min-height: 100vh;
+  min-height: calc(100vh - 80px);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;

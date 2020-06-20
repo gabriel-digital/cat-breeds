@@ -43,6 +43,13 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    [
+      'nuxt-lazy-load',
+      {
+        directiveOnly: true,
+        defaultImage: '/images/cat-placeholder.png',
+      },
+    ],
   ],
   /*
    ** Axios module configuration

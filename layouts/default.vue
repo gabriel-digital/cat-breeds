@@ -179,4 +179,21 @@ html {
   align-items: center;
   text-align: center;
 }
+a.button {
+  display: inline-block;
+  padding: 8px 12px;
+  margin: 45px 0;
+  font-weight: 600;
+  font-size: 1.2em;
+  border: 1px solid black;
+  color: black;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.2s linear;
+  border-radius: 3px;
+}
+a.button:hover {
+  color: white;
+  background-color: black;
+}
 </style>

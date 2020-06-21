@@ -34,10 +34,15 @@ export default {
     try {
       // check we can't access page "0"
       if (route.params.page < 1) {
-        error({ statusCode: 404, message: 'Page not found' })
-      } else {
-        // fetch breeds
-        const limit = 20
+        return error({ statusCode: 404, message: 'Page not found' })
+      }
+      // finit vars
+      const limit = 20
+      let totalPages = 0
+      let breeds = {}
+      const pictures = []
+      // fetch breeds
+      try {
         const response = await $axios.get(
           `https://api.thecatapi.com/v1/breeds?limit=${limit}&page=${
             route.params.page - 1
@@ -47,37 +52,38 @@ export default {
           }
         )
         // set number of pages & make sure we can't exceed it
-        const totalPages = Math.ceil(
-          response.headers['pagination-count'] / limit
-        )
+        totalPages = Math.ceil(response.headers['pagination-count'] / limit)
         if (route.params.page > totalPages) {
-          error({ statusCode: 404, message: 'Page not found' })
-        } else {
-          const breeds = response.data
-          const pictures = []
-          // fetch picture url for each breed
-          for (let i = 0; i < breeds.length; i++) {
-            try {
-              const response = await $axios.get(
-                `https://api.thecatapi.com/v1/images/search?breed_id=${breeds[i].id}&size=thumb`,
-                {
-                  headers: { 'x-api-key': process.env.CATBREEDS_API_KEY },
-                }
-              )
-              pictures.push(response.data[0].url)
-            } catch (error) {
-              error({
-                statusCode: 503,
-                message: 'Unable to fetch all images at this time',
-              })
-            }
-          }
-          return {
-            totalPages,
-            breeds,
-            pictures,
-          }
+          return error({ statusCode: 404, message: 'Page not found' })
         }
+        breeds = response.data
+      } catch (error) {
+        error({
+          statusCode: 503,
+          message: 'Unable to fetch all images at this time',
+        })
+      }
+      // fetch picture url for each breed
+      for (let i = 0; i < breeds.length; i++) {
+        try {
+          const response = await $axios.get(
+            `https://api.thecatapi.com/v1/images/search?breed_id=${breeds[i].id}&size=thumb`,
+            {
+              headers: { 'x-api-key': process.env.CATBREEDS_API_KEY },
+            }
+          )
+          pictures.push(response.data[0].url)
+        } catch (error) {
+          error({
+            statusCode: 503,
+            message: 'Unable to fetch all images at this time',
+          })
+        }
+      }
+      return {
+        totalPages,
+        breeds,
+        pictures,
       }
     } catch (e) {
       error({

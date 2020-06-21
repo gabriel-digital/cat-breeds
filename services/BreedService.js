@@ -15,6 +15,6 @@ export default {
     return apiClient.get(`/breeds?limit=${limit}&page=${page - 1}`)
   },
   getPicture(breed) {
-    return apiClient.get(`/images/search?breed_id=${breed}&size=thumb`)
+    return apiClient.get(`/images/search?breed_id=${breed}`)
   },
 }

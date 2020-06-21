@@ -5,7 +5,7 @@
         src="https://api.thecatapi.com/favicon.ico"
         alt="TheCatApi // Developer Experience"
       />
-      <p>Cat Breeds // nuxt web app @ Jellynote job application</p>
+      <p>Cat Breeds // nuxt web app // Jellynote job application</p>
     </div>
   </header>
 </template>

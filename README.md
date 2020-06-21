@@ -1,5 +1,17 @@
 # cat-breeds
 
+nuxt web app for Jellynote job application
+
+## requirements
+
+Get an API key at [https://thecatapi.com/](https://thecatapi.com/).
+Create a `.env` file at the root of your porject folder.
+Set your API key in `.env`:
+
+```js
+CATBREEDS_API_KEY = your - api - key
+```
+
 ## Build Setup
 
 ```bash

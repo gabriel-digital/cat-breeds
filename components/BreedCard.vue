@@ -1,6 +1,6 @@
 <template>
   <li>
-    <a :href="breed.wikipedia_url" target="_blank">
+    <a :href="breed.wikipedia_url" target="_blank" rel="noopener nofollow">
       <img
         v-lazy-load
         :src="picture"
@@ -23,7 +23,7 @@ export default {
     },
     picture: {
       type: String,
-      default: () => '',
+      default: () => '../static/images/cat-placeholder.png',
     },
   },
 }
@@ -51,12 +51,6 @@ a img {
   height: 80px;
   -o-object-fit: contain;
   object-fit: cover;
-}
-img.isLoading {
-  opacity: 0;
-}
-img.isLoaded {
-  opacity: 1;
 }
 a h2 {
   margin: 10px 0;

@@ -26,6 +26,13 @@ export default {
    */
   css: [],
   /*
+   ** Customize the progress-bar color
+   */
+  loading: {
+    color: 'rgba(0,0,0,.5)',
+    height: '5px',
+  },
+  /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */

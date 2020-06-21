@@ -3,7 +3,7 @@
     <a :href="breed.wikipedia_url" target="_blank">
       <img
         v-lazy-load
-        :src="breed.picture"
+        :src="picture"
         :alt="`picture of ${breed.name} breed cat`"
       />
       <h2>
@@ -20,6 +20,10 @@ export default {
     breed: {
       type: Object,
       default: () => ({}),
+    },
+    picture: {
+      type: String,
+      default: () => '',
     },
   },
 }

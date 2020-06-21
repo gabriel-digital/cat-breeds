@@ -11,6 +11,7 @@
           :breed="breed"
           :total-pages="totalPages"
           :data-index="index"
+          :picture="pictures[index]"
         />
       </ul>
     </main>
@@ -53,19 +54,28 @@ export default {
           error({ statusCode: 404, message: 'Page not found' })
         } else {
           const breeds = response.data
+          const pictures = []
           // fetch picture url for each breed
           for (let i = 0; i < breeds.length; i++) {
-            const response = await $axios.get(
-              `https://api.thecatapi.com/v1/images/search?breed_id=${breeds[i].id}&size=small`,
-              {
-                headers: { 'x-api-key': process.env.CATBREEDS_API_KEY },
-              }
-            )
-            breeds[i].picture = response.data[0].url
+            try {
+              const response = await $axios.get(
+                `https://api.thecatapi.com/v1/images/search?breed_id=${breeds[i].id}&size=thumb`,
+                {
+                  headers: { 'x-api-key': process.env.CATBREEDS_API_KEY },
+                }
+              )
+              pictures.push(response.data[0].url)
+            } catch (error) {
+              error({
+                statusCode: 503,
+                message: 'Unable to fetch all images at this time',
+              })
+            }
           }
           return {
             totalPages,
             breeds,
+            pictures,
           }
         }
       }

@@ -15,6 +15,7 @@ export default {
     return apiClient.get(`/breeds?limit=${limit}&page=${page - 1}`)
   },
   getPicture(breed) {
+    // TODO perhaps add a cache here with a default fallback to an api call
     return apiClient.get(`/images/search?breed_id=${breed}`)
   },
 }

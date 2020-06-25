@@ -9,13 +9,12 @@
           v-for="(breed, index) in breeds"
           :key="index"
           :breed="breed"
-          :total-pages="totalPages"
           :data-index="index"
           :picture="pictures[index]"
         />
       </ul>
     </main>
-    <Pagination :page="page" />
+    <Pagination :page="page" :total-pages="totalPages" />
   </div>
 </template>
 <script>
@@ -79,7 +78,7 @@ export default {
   },
   computed: {
     page() {
-      return this.$route.params.page
+      return parseInt(this.$route.params.page)
     },
   },
   head() {

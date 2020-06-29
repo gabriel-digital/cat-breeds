@@ -36,6 +36,7 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
+  // TODO perhaps add an image retrieval plugin here
   plugins: [],
   /*
    ** Nuxt.js dev-modules

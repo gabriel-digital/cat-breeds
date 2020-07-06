@@ -36,7 +36,7 @@ export default {
       return error({ statusCode: 404, message: 'This page could not be found' })
     }
     // finit vars
-    const limit = 20
+    const limit = 17
     let totalPages = 0
     let breeds = {}
     // fetch breeds
@@ -94,9 +94,13 @@ h1 {
   font-weight: 800;
   font-size: 1.5em;
 }
+main {
+  width: 100%;
+}
 ul {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-rows: repeat(6, 1fr);
+  grid-gap: 24px;
 }
 </style>

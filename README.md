@@ -1,6 +1,6 @@
 # Cat Breeds
 
-Nuxt web app for Jellynote job application
+Nuxt web app for job application exercise
 
 ## requirements
 

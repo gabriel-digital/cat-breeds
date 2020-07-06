@@ -29,13 +29,11 @@ export default {
 }
 </script>
 <style scoped>
-li {
-  width: 230px;
-}
 a {
   display: block;
+  width: 100%;
+  height: 100%;
   padding: 20px;
-  margin-bottom: 24px;
   transition: all 0.2s linear;
   text-decoration: none;
   box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.05), 0 1px 15px 0 rgba(0, 0, 0, 0.05);
@@ -47,8 +45,9 @@ a:hover {
   box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.2), 0 1px 15px 0 rgba(0, 0, 0, 0.19);
 }
 a img {
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
   -o-object-fit: contain;
   object-fit: cover;
 }
@@ -56,14 +55,13 @@ a h2 {
   margin: 10px 0;
   font-weight: 800;
 }
-@media screen and (max-width: 1023px) {
-  li {
-    width: 45%;
+@media screen and (min-width: 1024px) {
+  li:nth-child(5) {
+    grid-column: 2 / span 2;
   }
-}
-@media screen and (max-width: 560px) {
-  li {
-    width: 100%;
+  li:nth-child(12) {
+    grid-column: 1 / span 2;
+    grid-row: 4 / span 2;
   }
 }
 </style>
